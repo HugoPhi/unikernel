@@ -1,0 +1,67 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "modules/axalloc",
+    "modules/axconfig",
+    "modules/axdisplay",
+    "modules/axdriver",
+    "modules/axfs",
+    "modules/axhal",
+    "modules/axlog",
+    "modules/axmm",
+    "modules/axdma",
+    "modules/axnet",
+    "modules/axruntime",
+    "modules/axsync",
+    "modules/axtask",
+
+    "api/axfeat",
+    "api/arceos_api",
+    "api/arceos_posix_api",
+
+    "ulib/axstd",
+    "ulib/axlibc",
+
+    "examples/helloworld",
+    "examples/httpclient",
+    "examples/httpserver",
+    "examples/httpserver",
+    "examples/shell",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+authors = ["Yuekai Jia <equation618@gmail.com>"]
+license = "GPL-3.0-or-later OR Apache-2.0 OR MulanPSL-2.0"
+homepage = "https://github.com/arceos-org/arceos"
+documentation = "https://arceos-org.github.io/arceos"
+repository = "https://github.com/arceos-org/arceos"
+keywords = ["arceos", "kernel"]
+categories = ["os", "no-std"]
+
+[workspace.dependencies]
+axstd = { path = "ulib/axstd" }
+axlibc = { path = "ulib/axlibc" }
+
+arceos_api = { path = "api/arceos_api" }
+arceos_posix_api = { path = "api/arceos_posix_api" }
+axfeat = { path = "api/axfeat" }
+
+axalloc = { path = "modules/axalloc" }
+axconfig = { path = "modules/axconfig" }
+axdisplay = { path = "modules/axdisplay" }
+axdriver = { path = "modules/axdriver" }
+axfs = { path = "modules/axfs" }
+axhal = { path = "modules/axhal" }
+axlog = { path = "modules/axlog" }
+axmm = { path = "modules/axmm" }
+axnet = { path = "modules/axnet" }
+axruntime = { path = "modules/axruntime" }
+axsync = { path = "modules/axsync" }
+axtask = { path = "modules/axtask" }
+axdma = { path = "modules/axdma" }
+
+[profile.release]
+lto = true

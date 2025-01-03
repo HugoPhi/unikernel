@@ -1,0 +1,43 @@
+[package]
+name = "axruntime"
+version.workspace = true
+edition.workspace = true
+authors = ["Yuekai Jia <equation618@gmail.com>"]
+description = "Runtime library of ArceOS"
+license.workspace = true
+homepage.workspace = true
+repository = "https://github.com/arceos-org/arceos/tree/main/modules/axruntime"
+documentation = "https://arceos-org.github.io/arceos/axruntime/index.html"
+
+[features]
+default = []
+
+smp = ["axhal/smp", "axtask?/smp"]
+irq = ["axhal/irq", "axtask?/irq", "percpu", "kernel_guard"]
+tls = ["axhal/tls", "axtask?/tls"]
+alloc = ["axalloc"]
+paging = ["axhal/paging", "axmm"]
+
+multitask = ["axtask/multitask"]
+fs = ["axdriver", "axfs"]
+net = ["axdriver", "axnet"]
+display = ["axdriver", "axdisplay"]
+rtc = []
+
+[dependencies]
+axhal = { workspace = true }
+axlog = { workspace = true }
+axconfig = { workspace = true }
+axalloc = { workspace = true, optional = true }
+axmm = { workspace = true, optional = true }
+axdriver = { workspace = true, optional = true }
+axfs = { workspace = true, optional = true }
+axnet = { workspace = true, optional = true }
+axdisplay = { workspace = true, optional = true }
+axtask = { workspace = true, optional = true }
+
+crate_interface = "0.1"
+percpu = { version = "0.1", optional = true }
+kernel_guard = { version = "0.1", optional = true }
+
+chrono = { version = "0.4.38", default-features = false }
