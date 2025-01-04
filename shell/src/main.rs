@@ -32,7 +32,7 @@ const MAX_CMD_LEN: usize = 256;
 
 fn print_prompt() {
     print!(
-        "arceos:{}$ ",
+        "yunmingos:{}$ ",
         path_to_str(&std::env::current_dir().unwrap())
     );
     std::io::stdout().flush().unwrap();

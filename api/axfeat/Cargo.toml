@@ -7,7 +7,6 @@ description = "Top-level feature selection for ArceOS"
 license.workspace = true
 homepage.workspace = true
 repository = "https://github.com/arceos-org/arceos/tree/main/api/axfeat"
-documentation = "https://arceos-org.github.io/arceos/axfeat/index.html"
 
 [features]
 default = []
@@ -42,11 +41,11 @@ sched_cfs = ["axtask/sched_cfs", "irq"]
 fs = ["alloc", "paging", "axdriver/virtio-blk", "dep:axfs", "axruntime/fs"] # TODO: try to remove "paging"
 myfs = ["axfs?/myfs"]
 
-# Networking
-net = ["alloc", "paging", "axdriver/virtio-net", "dep:axnet", "axruntime/net"]
+# Networking: TODO
+# net = ["alloc", "paging", "axdriver/virtio-net", "dep:axnet", "axruntime/net"]
 
-# Display
-display = ["alloc", "paging", "axdriver/virtio-gpu", "dep:axdisplay", "axruntime/display"]
+# Display: TODO
+# display = ["alloc", "paging", "axdriver/virtio-gpu", "dep:axdisplay", "axruntime/display"]
 
 # Real Time Clock (RTC) Driver.
 rtc = ["axhal/rtc", "axruntime/rtc"]
@@ -73,8 +72,8 @@ axlog = { workspace = true }
 axalloc = { workspace = true, optional = true }
 axdriver = { workspace = true, optional = true }
 axfs = { workspace = true, optional = true }
-axnet = { workspace = true, optional = true }
-axdisplay = { workspace = true, optional = true }
+# axnet = { workspace = true, optional = true }
+# axdisplay = { workspace = true, optional = true }
 axsync = { workspace = true, optional = true }
 axtask = { workspace = true, optional = true }
 kspin = { version = "0.1", optional = true }

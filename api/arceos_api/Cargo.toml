@@ -18,8 +18,8 @@ paging = ["dep:axmm", "axfeat/paging"]
 dma = ["dep:axdma", "axfeat/dma"]
 multitask = ["axtask/multitask", "axsync/multitask", "axfeat/multitask"]
 fs = ["dep:axfs", "dep:axdriver", "axfeat/fs"]
-net = ["dep:axnet", "dep:axdriver", "axfeat/net"]
-display = ["dep:axdisplay", "dep:axdriver", "axfeat/display"]
+# net = ["dep:axnet", "dep:axdriver", "axfeat/net"]
+# display = ["dep:axdisplay", "dep:axdriver", "axfeat/display"]
 
 myfs = ["axfeat/myfs"]
 
@@ -41,5 +41,5 @@ axdma = { workspace = true, optional = true }
 axtask = { workspace = true, optional = true }
 axdriver = { workspace = true, optional = true }
 axfs = { workspace = true, optional = true }
-axnet = { workspace = true, optional = true }
-axdisplay = { workspace = true, optional = true }
+# axnet = { workspace = true, optional = true }
+# axdisplay = { workspace = true, optional = true }
