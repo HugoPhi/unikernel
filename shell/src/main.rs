@@ -59,10 +59,24 @@ fn main() {
         match buf[cursor] {
             CR | LF => {
                 println!();
-                if cursor > 0 {
-                    cmd::run_cmd(&buf[..cursor]);
-                    cursor = 0;
+                // if cursor > 0 {
+                //     cmd::run_cmd(&buf[..cursor]);
+                //     cursor = 0;
+                // }
+
+                if cursor > 0 && buf[cursor - 1] == BACKSLASH {
+                    cursor -= 1;
+                    stdout.write_all(&[b'>']).unwrap();
+                    multiline = true;
+                    continue;
+                } else {
+                    if cursor > 0 {
+                        cmd::run_cmd(&buf[..cursor]);
+                        cursor = 0;
+                    }
+                    multiline = false;
                 }
+
                 print_prompt();
             }
             BS | DL => {
