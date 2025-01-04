@@ -1,4 +1,4 @@
-![](./assets/overview.png)
+![](./assets/mainPage.png)
 
 # Yunming OS
 
