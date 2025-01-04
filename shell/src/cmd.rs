@@ -1,7 +1,7 @@
+use crate::std::string::ToString;
 use std::fs::{self, File, FileType, OpenOptions};
 use std::io::{self, prelude::*, Write};
 use std::{string::String, vec::Vec};
-use crate::std::string::ToString;
 
 #[cfg(all(not(feature = "axstd"), unix))]
 use std::os::unix::fs::{FileTypeExt, PermissionsExt};
@@ -247,7 +247,6 @@ fn do_rm(args: &str) {
     }
 }
 
-
 fn do_cd(mut args: &str) {
     if args.is_empty() {
         args = "/";
@@ -269,20 +268,22 @@ fn do_pwd(_args: &str) {
 fn do_uname(_args: &str) {
     let arch = option_env!("AX_ARCH").unwrap_or("");
     let platform = option_env!("AX_PLATFORM").unwrap_or("");
-    let smp = match option_env!("AX_SMP") {
-        None | Some("1") => "",
-        _ => " SMP",
+
+    let smp = if let Some(smp_str) = option_env!("AX_SMP") {
+        smp_str
+    } else {
+        "Unknown"
     };
+
     let version = option_env!("CARGO_PKG_VERSION").unwrap_or("0.1.0");
     println!(
-        "ArceOS {ver}{smp} {arch} {plat}",
+        "YunmingOS v{ver}/n smp={smp}/n arch={arch}/n platform={plat}",
         ver = version,
         smp = smp,
         arch = arch,
         plat = platform,
     );
 }
-
 
 fn do_help(_args: &str) {
     for (name, _) in CMD_TABLE {
@@ -304,17 +305,26 @@ fn do_help(_args: &str) {
 
         match *name {
             "cat" => {
-                println!("  \x1B[32m1.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[FILE]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m1.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[FILE]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'cat file.txt'\x1B[0m");
             }
             "cd" => {
-                println!("  \x1B[32m2.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m2.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'cd /home/user'\x1B[0m");
             }
             "echo" => {
-                println!("  \x1B[32m3.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[STRING] > [FILE]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m3.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[STRING] > [FILE]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'echo Hello > file.txt'\x1B[0m");
             }
@@ -327,12 +337,18 @@ fn do_help(_args: &str) {
                 println!("      \x1B[37m{}\x1B[0m", description);
             }
             "ls" => {
-                println!("  \x1B[32m6.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m6.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'ls /home'\x1B[0m");
             }
             "mkdir" => {
-                println!("  \x1B[32m7.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m7.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[DIR]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'mkdir new_dir'\x1B[0m");
             }
@@ -341,7 +357,10 @@ fn do_help(_args: &str) {
                 println!("      \x1B[37m{}\x1B[0m", description);
             }
             "rm" => {
-                println!("  \x1B[32m9.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[-r] [-d] [FILE/DIR]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m9.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[-r] [-d] [FILE/DIR]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'rm -r folder'\x1B[0m");
             }
@@ -354,7 +373,10 @@ fn do_help(_args: &str) {
                 println!("      \x1B[37m{}\x1B[0m", description);
             }
             "touch" => {
-                println!("  \x1B[32m12.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[FILE]\x1B[0m", name);
+                println!(
+                    "  \x1B[32m12.\x1B[0m \x1B[33m{}\x1B[0m \x1B[34m[FILE]\x1B[0m",
+                    name
+                );
                 print!("      \x1B[37m{}\x1B[0m", description);
                 println!(", \x1B[32me.g., 'touch newfile.txt'\x1B[0m");
             }
@@ -365,8 +387,6 @@ fn do_help(_args: &str) {
         }
         print!("\x1B[0m");
     }
-
-
 }
 
 fn do_exit(_args: &str) {
@@ -387,12 +407,12 @@ pub fn run_cmd(line: &[u8]) {
         println!("{}: command not found", cmd);
     }
 
-    print!("> Available commands: |");
+    print!("> Available commands: | ");
     for (name, _) in CMD_TABLE {
         print!("{} | ", name);
     }
 
-    println!("\n> For more detailed usage, refer to the specific command documentation.");
+    println!("\n> For more detailed usage, run cmd 'help'.");
 }
 
 fn split_whitespace(str: &str) -> (&str, &str) {
@@ -400,7 +420,6 @@ fn split_whitespace(str: &str) -> (&str, &str) {
     str.find(char::is_whitespace)
         .map_or((str, ""), |n| (&str[..n], str[n + 1..].trim()))
 }
-
 
 fn do_clear(_args: &str) {
     clear_screen();
@@ -417,10 +436,7 @@ fn do_touch(args: &str) {
     }
 
     fn touch_one(path: &str) -> io::Result<()> {
-        let _file = OpenOptions::new()
-            .create(true)
-            .write(true)
-            .open(path)?;
+        let _file = OpenOptions::new().create(true).write(true).open(path)?;
 
         // file.flush()?;
 
@@ -433,4 +449,3 @@ fn do_touch(args: &str) {
         }
     }
 }
-
