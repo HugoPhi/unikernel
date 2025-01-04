@@ -1,0 +1,11 @@
+/target
+.DS_Store
+*.asm
+*.img
+*.o
+*.elf
+*.bin
+qemu.log
+rusty-tags.vi
+/.project*
+/.axconfig.*
