@@ -1,5 +1,9 @@
 ![](./assets/mainPage.png)
 
+# ✨Quick start
+
+如果你想快速体验，你可以跳转到这个[项目](https://github.com/HugoPhi/unikernel-try)，这里有编译好的内核文件，以及详细的指导教程，让你能够在Docker里面体验这个unikernel操作系统。
+
 # Yunming OS
 
 ## 简介
@@ -15,7 +19,6 @@
 - [ ] RISC-V
 - [ ] LoongArch
 
-如果你想快速体验，你可以跳转到这个[项目](https://github.com/HugoPhi/unikernel-try)，这里有编译好的内核文件，以及详细的指导教程，让你能够在Docker里面体验这个unikernel操作系统。
 
 ## 环境搭建
 
